@@ -1,0 +1,6 @@
+function oneToFive() {
+    for (let i = 1; i <= 5; i++) {
+        console.log(i);
+    }
+}
+oneToFive(6)
