@@ -1,6 +1,7 @@
 function loadingBar(input) {
   if (input === 100) {
     console.log(`100% Complete!`);
+    console.log(`[%%%%%%%%%%]`);
     return;
   }
   let percent = input / 10;
