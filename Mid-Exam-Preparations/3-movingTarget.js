@@ -10,15 +10,16 @@ function movingTarget(input) {
         let task = Number(token[2])
         switch (token[0]) {
             case "Shoot":
-                if (location >= 0 && location <= target.length) {
+                if (location >= 0 && location < target.length) {
                     target[location] -= task
+                    if (target[location] <= 0) {
+                        target.splice(location, 1)
+                    }
                 }
-                if (target[location] <= 0) {
-                    target.splice(location, 1)
-                }
+                
                 break;
             case "Add":
-                if (location >= 0 && location <= target.length) {
+                if (location >= 0 && location < target.length) {
                     target.splice(location, 0, task)
                 } else {
                     console.log("Invalid placement!");
@@ -27,7 +28,7 @@ function movingTarget(input) {
             case "Strike":
                 let start = location - task
                 let end = task * 2 + 1
-                if (start >= 0 && end <= target.length) {
+                if (location - task >= 0 && task + location < target.length) {
                     target.splice(start, end)
                 } else {
                     console.log( "Strike missed!" );
