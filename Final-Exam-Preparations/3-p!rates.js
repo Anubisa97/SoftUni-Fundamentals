@@ -1,10 +1,9 @@
 function pirates(input) {
   let target = [];
 
-  for (const line of input) {
-    if (line === "Sail") {
-      break;
-    }
+  let line = input.shift();
+
+  while (line !== "Sail") {
     let [city, people, gold] = line.split(`||`);
     people = +people;
     gold = +gold;
@@ -20,23 +19,19 @@ function pirates(input) {
       };
       target.push(newTarget);
     }
+    line = input.shift();
   }
 
-  let sailIndex = input.indexOf("Sail");
-  for (let i = sailIndex + 1; i < input.length; i++) {
-    if (input[i] === "End") {
-      break;
-    }
+  line = input.shift();
 
-    let [event, city, token1, token2] = input[i].split(`=>`);
+  while (line !== "End") {
+    let [event, city, token1, token2] = line.split(`=>`);
     let gold;
     let people;
     let currentCity = target.find((x) => x.city === city);
+
     switch (event) {
       case "Plunder":
-        // if (!currentCity) {
-        //   break;
-        // }
         people = Number(token1);
         gold = Number(token2);
 
@@ -52,10 +47,8 @@ function pirates(input) {
         }
         break;
       case "Prosper":
-        if (!currentCity) {
-          break;
-        }
         gold = Number(token1);
+
         if (gold < 0) {
           console.log("Gold added cannot be a negative number!");
         } else {
@@ -66,11 +59,13 @@ function pirates(input) {
         }
         break;
     }
+    line = input.shift();
   }
-  console.log(
-    `Ahoy, Captain! There are ${target.length} wealthy settlements to go to:`
-  );
+
   if (target.length > 0) {
+    console.log(
+      `Ahoy, Captain! There are ${target.length} wealthy settlements to go to:`
+    );
     for (const line of target) {
       console.log(
         `${line.city} -> Population: ${line.people} citizens, Gold: ${line.gold} kg`
