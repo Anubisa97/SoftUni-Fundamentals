@@ -1,0 +1,2 @@
+function mirrorWords(input) {}
+mirrorWords();
